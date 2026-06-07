@@ -2,3 +2,5 @@
 models/
 results/
 *.xlsx
+*.drawio
+*.ipynb_checkpoints

@@ -1,4 +1,4 @@
-# 🇮🇩 Indonesian Emotion Classification with IndoBERT
+# 🇮🇩 Indonesian Emotion Classification using IndoBERT
 
 Multiclass emotion classification for Indonesian text using **IndoBERT** and **Hugging Face Transformers**. This project was developed as part of the **NoLimit Indonesia Data Scientist Hiring Test**.
 
@@ -12,13 +12,16 @@ The objective of this project is to classify Indonesian text into five emotion c
 * ❤️ Love
 * 😢 Sadness
 
-The model is fine-tuned from **IndoBERT Base P1** and evaluated using standard classification metrics such as Accuracy, Precision, Recall, and F1 Score.
+The model is fine-tuned from **IndoBERT Base P1** and evaluated using standard classification metrics including Accuracy, Precision, Recall, and F1 Score.
 
 ---
 
 ## Dataset
 
-**Source:**
+### Source
+
+Indonesian Twitter Emotion Dataset:
+
 https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
 ### Emotion Labels
@@ -33,11 +36,11 @@ https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
 ### Data Split
 
-| Split      | Ratio |
-| ---------- | ----- |
-| Train      | 70%   |
-| Validation | 15%   |
-| Test       | 15%   |
+| Split      | Percentage |
+| ---------- | ---------- |
+| Train      | 70%        |
+| Validation | 15%        |
+| Test       | 15%        |
 
 ---
 
@@ -45,15 +48,25 @@ https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
 ```text
 .
-├── data/
-├── notebooks/
+├── dataset/
+│   ├── emotion_dataset.csv
+│   └── slang_dict.csv
+│
 ├── models/
-├── outputs/
-├── train.py
-├── evaluate.py
+│   └── indobert-emotion-classification/
+│       ├── config.json
+│       ├── model.safetensors
+│       ├── tokenizer.json
+│       ├── tokenizer_config.json
+│       └── training_args.bin
+│
+├── notebooks/
+│   ├── emotion_classification.ipynb
+│   └── word_dictionary.xlsx
+│
+├── results/
 ├── requirements.txt
-├── README.md
-└── flowchart.png
+└── README.md
 ```
 
 ---
@@ -62,7 +75,7 @@ https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
 ### 1. Data Preprocessing
 
-The following preprocessing steps were applied:
+Several preprocessing techniques were applied to improve text quality before training:
 
 * Lowercasing
 * URL removal
@@ -74,13 +87,13 @@ The following preprocessing steps were applied:
 
 ### Example
 
-**Input**
+Input:
 
 ```text
 GAKKK suka banget sama pelayanan ini!!!
 ```
 
-**Output**
+Output:
 
 ```text
 tidak suka banget sama pelayanan ini!!!
@@ -100,18 +113,18 @@ indobenchmark/indobert-base-p1
 
 ### 3. Model Fine-Tuning
 
-**Base Model**
+Base model:
 
 ```text
 indobenchmark/indobert-base-p1
 ```
 
-**Framework**
+Framework:
 
 * PyTorch
 * Hugging Face Transformers
 
-### Training Configuration
+Training configuration:
 
 | Parameter         | Value    |
 | ----------------- | -------- |
@@ -127,7 +140,7 @@ indobenchmark/indobert-base-p1
 
 ## Results
 
-### Test Set Performance
+### Test Performance
 
 | Metric            | Score |
 | ----------------- | ----- |
@@ -137,19 +150,16 @@ indobenchmark/indobert-base-p1
 | Macro F1 Score    | 0.75  |
 | Weighted F1 Score | 0.74  |
 
-### Classification Report
+### Key Findings
 
-| Label   | Precision | Recall | F1-Score |
-| ------- | --------- | ------ | -------- |
-| anger   | 0.79      | 0.80   | 0.80     |
-| fear    | 0.71      | 0.68   | 0.69     |
-| happy   | 0.80      | 0.77   | 0.79     |
-| love    | 0.74      | 0.79   | 0.76     |
-| sadness | 0.75      | 0.72   | 0.74     |
+* IndoBERT achieved a Macro F1 Score of **0.75** on the test dataset.
+* Text normalization helped improve model robustness against informal Indonesian social media language.
+* The model performed well across all emotion categories with balanced precision and recall.
+* Fear-related tweets remain the most challenging category due to semantic overlap with sadness and anxiety expressions.
 
 ---
 
-## Sample Predictions
+## Example Predictions
 
 | Text                             | Predicted Emotion |
 | -------------------------------- | ----------------- |
@@ -158,6 +168,24 @@ indobenchmark/indobert-base-p1
 | aku takut menghadapi ujian besok | fear              |
 | aku sangat menyayanginya         | love              |
 | aku marah dengan pelayanan ini   | anger             |
+
+---
+
+## Trained Model
+
+The fine-tuned model is available in:
+
+```text
+models/indobert-emotion-classification/
+```
+
+The model directory contains:
+
+* config.json
+* model.safetensors
+* tokenizer.json
+* tokenizer_config.json
+* training_args.bin
 
 ---
 
@@ -178,43 +206,50 @@ pip install -r requirements.txt
 
 ---
 
-## Training
+## Running the Project
 
-Train the model:
-
-```bash
-python train.py
-```
-
----
-
-## Evaluation
-
-Evaluate the trained model:
+Launch Jupyter Notebook:
 
 ```bash
-python evaluate.py
+jupyter notebook
 ```
+
+Open:
+
+```text
+notebooks/emotion_classification.ipynb
+```
+
+Run all cells sequentially to reproduce the complete workflow:
+
+1. Data Loading
+2. Exploratory Data Analysis (EDA)
+3. Data Preprocessing
+4. Label Encoding
+5. Data Splitting
+6. Tokenization
+7. IndoBERT Fine-Tuning
+8. Model Evaluation
+9. Inference
 
 ---
 
 ## Inference
+
+Load the trained model using Hugging Face Transformers:
 
 ```python
 from transformers import pipeline
 
 classifier = pipeline(
     task="text-classification",
-    model="./models/best_model",
-    tokenizer="./models/best_model"
+    model="./models/indobert-emotion-classification"
 )
 
-result = classifier("aku sangat senang hari ini")
-
-print(result)
+classifier("aku sangat senang hari ini")
 ```
 
-Expected output:
+Example output:
 
 ```python
 [
@@ -254,12 +289,6 @@ Evaluation
 Prediction
 ```
 
-The complete workflow visualization is available in:
-
-```text
-flowchart.png
-```
-
 ---
 
 ## Technologies
@@ -270,6 +299,8 @@ flowchart.png
 * Scikit-learn
 * Pandas
 * NumPy
+* Matplotlib
+* Jupyter Notebook
 
 ---
 
@@ -277,6 +308,4 @@ flowchart.png
 
 **Kevin Sandy Dimpos Manurung**
 
-Data Science Undergraduate
-
-Project submitted for the **NoLimit Indonesia Data Scientist Hiring Test**.
+Project submitted for the **Data Scientist Hiring Test**.

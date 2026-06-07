@@ -72,6 +72,12 @@ https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
 ---
 
+## Workflow
+
+![Project Workflow](flowchart.jpg)
+
+---
+
 ## Methodology
 
 ### 1. Data Preprocessing
@@ -260,12 +266,6 @@ Example output:
     }
 ]
 ```
-
----
-
-## Workflow
-
-![Project Workflow](flowchart.jpg)
 
 ---
 

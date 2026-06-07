@@ -1,63 +1,47 @@
----
-language:
-- id
-metrics:
-- f1
-base_model:
-- indobenchmark/indobert-base-p1
-pipeline_tag: text-classification
-library_name: transformers
-tags:
-- emotion-classification
-- indobert
-- twitter
----
+# 🇮🇩 Indonesian Emotion Classification with IndoBERT
 
-# Indonesian Emotion Classification using IndoBERT
+Multiclass emotion classification for Indonesian text using **IndoBERT** and **Hugging Face Transformers**. This project was developed as part of the **NoLimit Indonesia Data Scientist Hiring Test**.
 
-An NLP project for multiclass emotion classification in Indonesian text using the pre-trained IndoBERT model and Hugging Face Transformers.
+## Overview
 
-## Objective
+The objective of this project is to classify Indonesian text into five emotion categories:
 
-This project aims to classify Indonesian text into one of five emotion categories:
+* 😡 Anger
+* 😨 Fear
+* 😊 Happy
+* ❤️ Love
+* 😢 Sadness
 
-- Anger
-- Fear
-- Happy
-- Love
-- Sadness
-
-The model is fine-tuned from IndoBERT and evaluated using Macro F1 Score, Weighted F1 Score, Accuracy, Precision, and Recall.
+The model is fine-tuned from **IndoBERT Base P1** and evaluated using standard classification metrics such as Accuracy, Precision, Recall, and F1 Score.
 
 ---
 
-# Dataset
+## Dataset
 
-Dataset source:
+**Source:**
+https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
 
-- Indonesian Twitter Emotion Dataset https://www.kaggle.com/datasets/dennisherdi/indonesian-twitter-emotion
+### Emotion Labels
 
-## Labels
+| Label   | Description       |
+| ------- | ----------------- |
+| anger   | Anger emotion     |
+| fear    | Fear or anxiety   |
+| happy   | Happiness or joy  |
+| love    | Affection or love |
+| sadness | Sadness           |
 
-| Label | Description |
-|---------|-------------|
-| anger | Anger emotion |
-| fear | Fear or anxiety |
-| happy | Happiness or joy |
-| love | Affection or love |
-| sadness | Sadness |
+### Data Split
 
-## Data Split
-
-| Split | Percentage |
-|---------|------------|
-| Train | 70% |
-| Validation | 15% |
-| Test | 15% |
+| Split      | Ratio |
+| ---------- | ----- |
+| Train      | 70%   |
+| Validation | 15%   |
+| Test       | 15%   |
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 .
@@ -74,29 +58,29 @@ Dataset source:
 
 ---
 
-# Methodology
+## Methodology
 
-## 1. Data Preprocessing
+### 1. Data Preprocessing
 
-Applied preprocessing steps:
+The following preprocessing steps were applied:
 
-- Lowercasing
-- URL removal
-- Mention removal
-- Hashtag normalization
-- Repeated character normalization
-- Indonesian slang word normalization
-- Whitespace normalization
+* Lowercasing
+* URL removal
+* Mention removal
+* Hashtag normalization
+* Repeated character normalization
+* Indonesian slang normalization
+* Whitespace normalization
 
-Example:
+### Example
 
-Input:
+**Input**
 
 ```text
 GAKKK suka banget sama pelayanan ini!!!
 ```
 
-Output:
+**Output**
 
 ```text
 tidak suka banget sama pelayanan ini!!!
@@ -104,9 +88,9 @@ tidak suka banget sama pelayanan ini!!!
 
 ---
 
-## 2. Tokenization
+### 2. Tokenization
 
-Tokenizer:
+Tokenizer used:
 
 ```text
 indobenchmark/indobert-base-p1
@@ -114,62 +98,72 @@ indobenchmark/indobert-base-p1
 
 ---
 
-## 3. Model Fine-Tuning
+### 3. Model Fine-Tuning
 
-Base Model:
-
-```text
-IndoBERT Base P1
-```
-
-Framework:
+**Base Model**
 
 ```text
-Hugging Face Transformers
-PyTorch
+indobenchmark/indobert-base-p1
 ```
 
-Training configuration:
+**Framework**
 
-| Parameter | Value |
-|------------|---------|
-| Learning Rate | 1e-5 |
-| Batch Size | 8 |
-| Epochs | 15 |
-| Weight Decay | 0.01 |
-| Warmup Ratio | 0.1 |
-| FP16 | Enabled |
-| Metric | Macro F1 |
+* PyTorch
+* Hugging Face Transformers
+
+### Training Configuration
+
+| Parameter         | Value    |
+| ----------------- | -------- |
+| Learning Rate     | 1e-5     |
+| Batch Size        | 8        |
+| Epochs            | 15       |
+| Weight Decay      | 0.01     |
+| Warmup Ratio      | 0.1      |
+| FP16              | Enabled  |
+| Evaluation Metric | Macro F1 |
 
 ---
 
-# Results
+## Results
 
-## Test Performance
+### Test Set Performance
 
-| Metric | Score |
-|----------|----------|
-| Accuracy | 0.74 |
-| Macro F1 | 0.75 |
-| Weighted F1 | 0.74 |
-| Macro Precision | 0.76 |
-| Macro Recall | 0.75 |
+| Metric            | Score |
+| ----------------- | ----- |
+| Accuracy          | 0.74  |
+| Macro Precision   | 0.76  |
+| Macro Recall      | 0.75  |
+| Macro F1 Score    | 0.75  |
+| Weighted F1 Score | 0.74  |
 
-### Example Predictions
+### Classification Report
 
-| Text | Prediction |
-|--------|------------|
-| aku sangat senang hari ini | happy |
-| aku kecewa dengan hasilnya | sadness |
-| aku takut menghadapi ujian besok | fear |
-| aku sangat menyayanginya | love |
-| aku marah dengan pelayanan ini | anger |
+| Label   | Precision | Recall | F1-Score |
+| ------- | --------- | ------ | -------- |
+| anger   | 0.79      | 0.80   | 0.80     |
+| fear    | 0.71      | 0.68   | 0.69     |
+| happy   | 0.80      | 0.77   | 0.79     |
+| love    | 0.74      | 0.79   | 0.76     |
+| sadness | 0.75      | 0.72   | 0.74     |
 
 ---
 
-# Installation
+## Sample Predictions
 
-Clone repository:
+| Text                             | Predicted Emotion |
+| -------------------------------- | ----------------- |
+| aku sangat senang hari ini       | happy             |
+| aku kecewa dengan hasilnya       | sadness           |
+| aku takut menghadapi ujian besok | fear              |
+| aku sangat menyayanginya         | love              |
+| aku marah dengan pelayanan ini   | anger             |
+
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/kevin-sandy/indobert-emotion-classification-twitter.git
@@ -184,7 +178,9 @@ pip install -r requirements.txt
 
 ---
 
-# Training
+## Training
+
+Train the model:
 
 ```bash
 python train.py
@@ -192,7 +188,9 @@ python train.py
 
 ---
 
-# Evaluation
+## Evaluation
+
+Evaluate the trained model:
 
 ```bash
 python evaluate.py
@@ -200,17 +198,20 @@ python evaluate.py
 
 ---
 
-# Inference
+## Inference
 
 ```python
 from transformers import pipeline
 
 classifier = pipeline(
-    "text-classification",
-    model="./models/best_model"
+    task="text-classification",
+    model="./models/best_model",
+    tokenizer="./models/best_model"
 )
 
-classifier("aku sangat senang hari ini")
+result = classifier("aku sangat senang hari ini")
+
+print(result)
 ```
 
 Expected output:
@@ -226,49 +227,56 @@ Expected output:
 
 ---
 
-# Flowchart
+## Workflow
 
-The complete pipeline flowchart is available in:
+```text
+Dataset
+   │
+   ▼
+Preprocessing
+   │
+   ▼
+Label Encoding
+   │
+   ▼
+Train / Validation / Test Split
+   │
+   ▼
+Tokenization
+   │
+   ▼
+IndoBERT Fine-Tuning
+   │
+   ▼
+Evaluation
+   │
+   ▼
+Prediction
+```
+
+The complete workflow visualization is available in:
 
 ```text
 flowchart.png
 ```
 
-Pipeline:
+---
 
-```text
-Dataset
-    ↓
-Preprocessing
-    ↓
-Label Encoding
-    ↓
-Train / Validation / Test Split
-    ↓
-Tokenization
-    ↓
-IndoBERT Fine-Tuning
-    ↓
-Evaluation
-    ↓
-Prediction
-```
+## Technologies
+
+* Python
+* PyTorch
+* Hugging Face Transformers
+* Scikit-learn
+* Pandas
+* NumPy
 
 ---
 
-# Technologies
+## Author
 
-- Python
-- PyTorch
-- Hugging Face Transformers
-- Scikit-learn
-- Pandas
-- NumPy
+**Kevin Sandy Dimpos Manurung**
 
----
+Data Science Undergraduate
 
-# Author
-
-Kevin Sandy Dimpos Manurung
-
-NoLimit Indonesia – Data Scientist Hiring Test
+Project submitted for the **NoLimit Indonesia Data Scientist Hiring Test**.

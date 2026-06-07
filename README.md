@@ -267,34 +267,6 @@ Example output:
 
 ![Project Workflow](flowchart.jpg)
 
-```text
-Dataset
-   │
-   ▼
-Exploratory Data Analytics (EDA)
-   │
-   ▼
-Preprocessing
-   │
-   ▼
-Label Encoding
-   │
-   ▼
-Data Spliting
-   │
-   ▼
-Tokenization & Class Weight
-   │
-   ▼
-IndoBERT Fine-Tuning
-   │
-   ▼
-Evaluation
-   │
-   ▼
-Prediction
-```
-
 ---
 
 ## Technologies

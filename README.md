@@ -1,5 +1,6 @@
 # 🇮🇩 Indonesian Emotion Classification using IndoBERT
-[![Hugging Face](https://img.shields.io/badge/HuggingFace-Model-yellow)](https://huggingface.co/kevin-sandy/indobert-emotion-classification-twitter)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/kevin-sandy/indobert-emotion-classification-twitter)
+[![Hugging Face](https://img.shields.io/badge/HuggingFace-Model-yellow?logo=huggingface)](https://huggingface.co/kevin-sandy/indobert-emotion-classification-twitter)
 
 Multiclass emotion classification for Indonesian text using **IndoBERT** and **Hugging Face Transformers**. This project was developed as part of the **NoLimit Indonesia Data Scientist Hiring Test**.
 

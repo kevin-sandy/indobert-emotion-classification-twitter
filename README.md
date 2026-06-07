@@ -265,8 +265,13 @@ Example output:
 
 ## Workflow
 
+![Project Workflow](flowchart.jpg)
+
 ```text
 Dataset
+   │
+   ▼
+Exploratory Data Analytics (EDA)
    │
    ▼
 Preprocessing
@@ -275,10 +280,10 @@ Preprocessing
 Label Encoding
    │
    ▼
-Train / Validation / Test Split
+Data Spliting
    │
    ▼
-Tokenization
+Tokenization & Class Weight
    │
    ▼
 IndoBERT Fine-Tuning
